@@ -2,7 +2,6 @@
 
 :root {
     --mainColor: #047eaa;
-    /* --mainColor: #aa0439; */
 }
 
 * {
@@ -12,13 +11,23 @@
     font-family: "Poppins";
 }
 
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 #wrapper {
-    min-height: 100vh;
+    /* min-height: 100vh; */
     background: rgb(238, 238, 238);
+    flex: 1 0 auto;
 }
 
 #mainpage {
-    padding: 0 50px;
+    padding: 0 70px;
 }
 
 h1,
@@ -76,7 +85,7 @@ table tr:nth-child(odd) {
 }
 
 table tr:hover {
-    background-color: #ddd;
+    /* background-color: #ddd; */
 }
 
 table th {
@@ -89,7 +98,8 @@ table th {
 }
 
 footer {
-    padding: 50px;
+    flex-shrink: 0;
+    padding: 70px;
 }
 
 a {
