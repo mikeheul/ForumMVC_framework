@@ -22,12 +22,12 @@
                     <div class="colors-container">
                         <p>Select your color</p>
                         <div class="colors">
-                            <span class="circle default" data-color="#047eaa"><i class="fa-solid fa-rotate-right"></i></span>
-                            <span class="circle red" data-color="rgb(231, 79, 79)"></span>
-                            <span class="circle blue" data-color="rgb(96, 96, 225)"></span>
-                            <span class="circle green" data-color="rgb(81, 148, 81)"></span>
-                            <span class="circle purple" data-color="rgb(130, 75, 130)"></span>
-                            <span class="circle dark" data-color="rgb(71, 71, 71)"></span>
+                            <span class="circle circle-default" data-color="#047eaa"><i class="fa-solid fa-rotate-right"></i></span>
+                            <span class="circle circle-red" data-color="rgb(231, 79, 79)"></span>
+                            <span class="circle circle-blue" data-color="rgb(96, 96, 225)"></span>
+                            <span class="circle circle-green" data-color="rgb(81, 148, 81)"></span>
+                            <span class="circle circle-purple" data-color="rgb(130, 75, 130)"></span>
+                            <span class="circle circle-dark" data-color="rgb(71, 71, 71)"></span>
                         </div>
                     </div>
                     <div class="settings"><i class="fa-solid fa-gear"></i></div>

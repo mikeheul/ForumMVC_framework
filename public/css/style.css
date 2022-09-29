@@ -237,12 +237,12 @@ a {
     color: #fff;
 }
 
-.dark { background: rgb(71, 71, 71); }
-.red { background: rgb(231, 79, 79); }
-.blue { background: rgb(96, 96, 225); }
-.green { background: rgb(81, 148, 81); }
-.purple { background: rgb(130, 75, 130); }
-.default { background: #047eaa; }
+.circle-dark { background: rgb(71, 71, 71); }
+.circle-red { background: rgb(231, 79, 79); }
+.circle-blue { background: rgb(96, 96, 225); }
+.circle-green { background: rgb(81, 148, 81); }
+.circle-purple { background: rgb(130, 75, 130); }
+.circle-default { background: #047eaa; }
 
 .settings {
     position: absolute;
