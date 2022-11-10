@@ -5,9 +5,8 @@ $topic = $result["data"]['topic'];
 
 ?>
 
-<h1><?= $topic ?> <?= ($topic->getLocked()) ? "<span class='label label-warning'>Locked</span>" : "" ?></h1>
-
-
+<h1><a href="index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $topic->getCategory()->getId() ?>"><?= $topic->getCategory() ?></a></h1>
+<h2><?= $topic ?> <?= ($topic->getLocked()) ? "<span class='label label-warning'>Locked</span>" : "" ?></h2>
 
 <table>
     <thead>
