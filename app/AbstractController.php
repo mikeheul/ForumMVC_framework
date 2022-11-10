@@ -9,7 +9,6 @@ abstract class AbstractController
 
     public function redirectTo($ctrl = null, $action = null, $id = null)
     {
-
         if ($ctrl != "home") {
             $url = $ctrl ? "?ctrl=" . $ctrl : "";
             $url .= $action ? "&action=" . $action : "";

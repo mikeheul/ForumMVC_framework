@@ -17,7 +17,7 @@ class TopicManager extends Manager
         parent::connect();
     }
 
-    public function findAllTopics($order = null)
+    public function findAllTopics($order = null, $id)
     {
         $orderQuery = ($order) ?                 
                 "ORDER BY ".$order[0]. " ".$order[1] :
@@ -26,11 +26,12 @@ class TopicManager extends Manager
                 $sql = "SELECT id_topic, title, dateTopic, locked, t.user_id, COUNT(p.topic_id) AS nbPosts
                     FROM " . $this->tableName. " t 
                     LEFT JOIN post p ON t.id_topic = p.topic_id 
+                    WHERE t.category_id = :id
                     GROUP BY t.id_topic "
                     . $orderQuery; 
 
         return  $this->getMultipleResults(
-            DAO::select($sql),
+            DAO::select($sql, ["id" => $id]),
             $this->className
         );
     }

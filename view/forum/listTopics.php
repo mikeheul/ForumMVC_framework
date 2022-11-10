@@ -1,10 +1,15 @@
 <?php
 
-$topics = $result["data"]['topics'];
+$topics = (!$result["data"]['topics']) ? [] : $result["data"]['topics'];
+$category = $result["data"]['category'];
 
 ?>
 
-<h1>Topics</h1>
+<h1>Topics of <?= $category ?></h1>
+
+<?php if (!$topics) {
+    echo "No topics in this category";
+} else { ?>
 
 <table>
     <thead>
@@ -45,8 +50,10 @@ $topics = $result["data"]['topics'];
     </tbody>
 </table>
 
+<?php } ?>
+
 <h2>Create a new topic</h2>
-<form action="index.php?ctrl=forum&action=addTopic" method="POST">
+<form action="index.php?ctrl=forum&action=addTopic&id=<?= $category->getId() ?>" method="POST">
     <input class="form-control" type="text" name="titleTopic" id="titleTopic" placeholder="Title" required><br>
     <textarea class="form-control" name="textTopic" id="textTopic" cols="30" rows="10" placeholder="First message" required></textarea><br>
     <input class="btn" type="submit" name="submit" value="Create">

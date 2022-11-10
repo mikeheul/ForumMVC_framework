@@ -70,17 +70,25 @@ class HomeController extends AbstractController implements ControllerInterface
             //     $this->logout();
             // }
 
+            // si les filtres passent
             if ($email && $password) {
+                // retrouver le mot de passe de l'utlisateur correspondant au mail
                 $dbPass = $userManager->retrievePassword($email);
+                // si le mot de passe est retrouvé
                 if ($dbPass) {
+                    // récupération du mot de passe
                     $hash = $dbPass->getPassword();
+                    // retrouver l'utilisateur par son email
                     $user = $userManager->findOneByEmail($email);
-
+                    // comparaison du hash de la base de données et le mot de passe renseigné
                     if (password_verify($password, $hash)) {
-                        if ($user->getStatus() == true) {
+                        // si l'utilisateur n'est pas banni
+                        if ($user->getStatus()) {
+                            // placer l'utilisateur en Session
                             Session::setUser($user);
                             //initialisation d'un token pour toute la session user
                             Session::setTokenCSRF(bin2hex(random_bytes(32)));
+                            // message de confirmation de connexion
                             Session::addFlash("success", "Login successfully");
                             return [
                                 "view" => VIEW_DIR . "home.php",

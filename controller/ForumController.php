@@ -7,20 +7,37 @@ use App\AbstractController;
 use App\ControllerInterface;
 use Model\Managers\TopicManager;
 use Model\Managers\PostManager;
+use Model\Managers\CategoryManager;
 
 class ForumController extends AbstractController implements ControllerInterface
 {
 
-    public function index()
-    {
+    public function index() {}
+
+    public function listCategories() {
+        
+        $categoryManager = new CategoryManager();
+        
+        return [
+            "view" => VIEW_DIR . "forum/listCategories.php",
+            "data" => [
+                "categories" => $categoryManager->findAll(["categoryName","ASC"])
+            ]
+        ];
+    }
+
+    public function listTopicsByCategory($id) {
+
         $topicManager = new TopicManager();
-        // $topics = $topicManager->findAll(['dateTopic', 'DESC']);
-        $topics = $topicManager->findAllTopics(['dateTopic', 'DESC']);
+        $categoryManager = new CategoryManager();
+        $category = $categoryManager->findOneById($id);
+        $topics = $topicManager->findAllTopics(["dateTopic","DESC"], $id);
 
         return [
             "view" => VIEW_DIR . "forum/listTopics.php",
             "data" => [
-                "topics" => $topics
+                "topics" => $topics,
+                "category" => $category
             ]
         ];
     }
@@ -40,14 +57,13 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
-    public function addTopic()
+    public function addTopic($id)
     {
         $topicManager = new TopicManager();
 
-        if ($_SESSION['user']) {
+        if (\App\Session::getUser()) {
 
-
-            $user = $_SESSION['user']->getId();
+            $user = \App\Session::getUser()->getId();
 
             if (isset($_POST['submit'])) {
 
@@ -58,7 +74,7 @@ class ForumController extends AbstractController implements ControllerInterface
                 // }
                 if ($title && $text) {
                     //  je récuprere l'id de l'ajout pour le reutiliser 
-                    $idTopic = $topicManager->add(["user_id" => $user, "title" => $title, "locked" => 0]);
+                    $idTopic = $topicManager->add(["user_id" => $user, "title" => $title, "locked" => 0, "category_id" => $id]);
 
                     if ($text) {
                         $postManager = new PostManager();

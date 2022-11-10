@@ -6,7 +6,6 @@ use App\Entity;
 
 final class User extends Entity
 {
-
         private $id;
         private $nickname;
         private $email;
@@ -160,6 +159,12 @@ final class User extends Entity
                 $this->status = $status;
 
                 return $this;
+        }
+
+        public function hasRole($role) 
+        {
+                $result = $this->role == $role;
+                return $result;
         }
 
         public function __toString()
