@@ -38,7 +38,7 @@
                         <a href="index.php">Home</a>
                         <?php if (App\Session::getUser()) : ?>
                             <a href="index.php?ctrl=forum&action=listCategories">Categories</a>
-                            <?= "Role : " . App\Session::getUser()->hasRole("ROLE_ADMIN") ?>
+                            <!--<?= "Role : " . App\Session::getUser()->hasRole("ROLE_ADMIN") ?>-->
                         <?php endif; ?>
                     </div>
                     <div class="nav" id="nav-right">

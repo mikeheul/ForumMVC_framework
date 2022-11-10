@@ -44,7 +44,6 @@ class ForumController extends AbstractController implements ControllerInterface
 
     public function listPosts($id)
     {
-
         $postManager = new PostManager();
         $topicManager = new TopicManager();
 
@@ -91,6 +90,48 @@ class ForumController extends AbstractController implements ControllerInterface
                 $this->redirectTo("forum", "index");
                 Session::addFlash("error", "Blank input !");
             }
+        }
+    }
+
+    public function lockTopic($id) {
+
+        $topicManager = new TopicManager();
+        $topic = $topicManager->findOneById($id);
+
+        if($_SESSION['user']) {
+            $userId = $_SESSION['user']->getId();
+            if($userId === $topic->getUser()->getId()) {
+                $topicManager->lockTopic($id);
+                $this->redirectTo("forum", "listTopicsByCategory", $topic->getCategory()->getId());
+            } else {
+                Session::addFlash("error", "Forbidden action !");
+                $this->redirectTo("forum", "listPosts", $id);    
+            }
+
+        } else {
+            Session::addFlash("error", "Forbidden action !");
+            $this->redirectTo("forum", "");
+        }
+    }
+
+    public function unlockTopic($id) {
+
+        $topicManager = new TopicManager();
+        $topic = $topicManager->findOneById($id);
+
+        if($_SESSION['user']) {
+            $userId = $_SESSION['user']->getId();
+            if($userId === $topic->getUser()->getId()) {
+                $topicManager->unlockTopic($id);
+                $this->redirectTo("forum", "listTopicsByCategory", $topic->getCategory()->getId());
+            } else {
+                Session::addFlash("error", "Forbidden action !");
+                $this->redirectTo("forum", "listPosts", $id);    
+            }
+
+        } else {
+            Session::addFlash("error", "Forbidden action !");
+            $this->redirectTo("forum", "");
         }
     }
 

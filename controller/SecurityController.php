@@ -41,7 +41,9 @@ class HomeController extends AbstractController implements ControllerInterface
                             // hashage du mot de passe
                             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
                             // ajout en base de données
-                            $userManager->add(["email" => $email, "nickname" => $nickname, "password" => $passwordHash, "role" => json_encode(["ROLE_USER"])]);
+                            // $userManager->add(["email" => $email, "nickname" => $nickname, "password" => $passwordHash, "role" => json_encode(["ROLE_USER"])]);
+                            $userManager->add(["email" => $email, "nickname" => $nickname, "password" => $passwordHash, "role" => "ROLE_USER"]);
+                            $this->redirectTo("security", "login");
                         } else {
                             Session::addFlash("error", "Passwords do not match or password length is incorrect");
                         }

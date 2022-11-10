@@ -35,4 +35,16 @@ class TopicManager extends Manager
             $this->className
         );
     }
+
+    public function lockTopic($id) {
+
+        $sql = "UPDATE topic SET locked = 1 WHERE id_topic = :id";
+        DAO::update($sql, ["id" => $id]);
+    }
+
+    public function unlockTopic($id) {
+
+        $sql = "UPDATE topic SET locked = 0 WHERE id_topic = :id";
+        DAO::update($sql, ["id" => $id]);
+    }
 }

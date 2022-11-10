@@ -5,11 +5,11 @@ $category = $result["data"]['category'];
 
 ?>
 
-<h1>Topics of <?= $category ?></h1>
+<h1>Topics of « <?= $category ?> »</h1>
 
-<?php if (!$topics) {
-    echo "No topics in this category";
-} else { ?>
+<?php if (!$topics) { ?>
+    <p class="txt-warning">No topics in this category !</p>
+<?php } else { ?>
 
 <table>
     <thead>
@@ -40,7 +40,7 @@ $category = $result["data"]['category'];
             </td>
             <td class="small-col txt-center">
                 <?= ($topic->getUser()->getId() == App\Session::getUser()->getId()) 
-                    ?   ((!$topic->getLocked()) ? "<a href='' class='btn btn-warning'>Lock</a>" : "<a href='' class='btn btn-success'>Unlock</a>")
+                    ?   ((!$topic->getLocked()) ? "<a href='index.php?ctrl=forum&action=lockTopic&id=".$topic->getId()."' class='btn btn-warning'>Lock</a>" : "<a href='index.php?ctrl=forum&action=unlockTopic&id=".$topic->getId()."' class='btn btn-success'>Unlock</a>")
                     :   ""
                 ?>
             </td>
