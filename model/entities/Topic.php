@@ -10,7 +10,7 @@
         private $user;
         private $dateTopic;
         private $locked;
-        private $nbPosts;
+        private $nbPosts; // non mappé
         private $category;
 
         public function __construct($data){         
