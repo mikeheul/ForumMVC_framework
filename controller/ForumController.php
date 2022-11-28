@@ -28,18 +28,24 @@ class ForumController extends AbstractController implements ControllerInterface
 
     public function listTopicsByCategory($id) {
 
-        $topicManager = new TopicManager();
-        $categoryManager = new CategoryManager();
-        $category = $categoryManager->findOneById($id);
-        $topics = $topicManager->findAllTopics(["dateTopic","DESC"], $id);
-
-        return [
-            "view" => VIEW_DIR . "forum/listTopics.php",
-            "data" => [
-                "topics" => $topics,
-                "category" => $category
-            ]
-        ];
+        // control if logged user
+        if(\App\Session::getUser()) {
+            $topicManager = new TopicManager();
+            $categoryManager = new CategoryManager();
+            $category = $categoryManager->findOneById($id);
+            $topics = $topicManager->findAllTopics(["dateTopic","DESC"], $id);
+    
+            return [
+                "view" => VIEW_DIR . "forum/listTopics.php",
+                "data" => [
+                    "topics" => $topics,
+                    "category" => $category
+                ]
+            ];
+        } else {
+            Session::addFlash("error", "You have to sign in or sign up to access topics !");
+            $this->redirectTo("security", "login");
+        }
     }
 
     public function listPosts($id)
