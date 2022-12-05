@@ -17,6 +17,9 @@ class HomeController extends AbstractController implements ControllerInterface
         ];
     }
 
+    /** 
+     * Register in the forum
+     */
     public function register()
     {
         if (isset($_POST['submitSignUp'])) {
@@ -61,6 +64,9 @@ class HomeController extends AbstractController implements ControllerInterface
         return ["view" => VIEW_DIR . "/security/register.php"];
     }
 
+    /**
+     * Login in the forum
+     */
     public function login()
     {
         $userManager = new UserManager();
@@ -116,6 +122,9 @@ class HomeController extends AbstractController implements ControllerInterface
         return ["view" => VIEW_DIR . "/security/login.php"];
     }
 
+    /**
+     * Logout from the forum
+     */
     public function logout()
     {
         unset($_SESSION['tokenCSRF']);

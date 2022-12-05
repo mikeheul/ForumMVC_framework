@@ -5,13 +5,13 @@
 
     final class Topic extends Entity{
 
-        private $id;
-        private $title;
-        private $user;
-        private $dateTopic;
-        private $locked;
-        private $nbPosts; // non mappé
-        private $category;
+        private int $id;
+        private string $title;
+        private User $user;
+        private \DateTime $dateTopic;
+        private bool $locked;
+        private int $nbPosts; // non mappé
+        private Category $category;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -20,7 +20,7 @@
         /**
          * Get the value of id
          */ 
-        public function getId()
+        public function getId(): int
         {
                 return $this->id;
         }
@@ -40,7 +40,7 @@
         /**
          * Get the value of title
          */ 
-        public function getTitle()
+        public function getTitle(): string
         {
                 return $this->title;
         }
@@ -60,7 +60,7 @@
         /**
          * Get the value of user
          */ 
-        public function getUser()
+        public function getUser(): User
         {
                 return $this->user;
         }
@@ -82,7 +82,7 @@
         /**
          * Get the value of dateTopic
          */ 
-        public function getDateTopic()
+        public function getDateTopic(): \DateTime
         {
                 return $this->dateTopic;
         }
@@ -101,7 +101,7 @@
 
         /**
          * Get the value of locked        */ 
-        public function getLocked()
+        public function getLocked(): bool
         {
                 return $this->locked;
         }
@@ -119,7 +119,7 @@
         /**
          * Get the value of nbPosts
          */ 
-        public function getNbPosts()
+        public function getNbPosts(): int
         {
                 return $this->nbPosts;
         }
@@ -139,7 +139,7 @@
         /**
          * Get the value of category
          */ 
-        public function getCategory()
+        public function getCategory(): Category
         {
                 return $this->category;
         }

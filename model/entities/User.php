@@ -6,13 +6,13 @@ use App\Entity;
 
 final class User extends Entity
 {
-        private $id;
-        private $nickname;
-        private $email;
-        private $password;
-        private $creationDate;
-        private $role;
-        private $status;
+        private int $id;
+        private string $nickname;
+        private string $email;
+        private string $password;
+        private \DateTime $creationDate;
+        private string $role;
+        private bool $status;
 
         public function __construct($data)
         {
@@ -22,7 +22,7 @@ final class User extends Entity
         /**
          * Get the value of id
          */
-        public function getId()
+        public function getId(): int
         {
                 return $this->id;
         }
@@ -44,7 +44,7 @@ final class User extends Entity
         /**
          * Get the value of nickname
          */
-        public function getNickname()
+        public function getNickname(): string
         {
                 return $this->nickname;
         }
@@ -64,7 +64,7 @@ final class User extends Entity
         /**
          * Get the value of email
          */
-        public function getEmail()
+        public function getEmail(): string
         {
                 return $this->email;
         }
@@ -84,7 +84,7 @@ final class User extends Entity
         /**
          * Get the value of password
          */
-        public function getPassword()
+        public function getPassword(): string
         {
                 return $this->password;
         }
@@ -104,7 +104,7 @@ final class User extends Entity
         /**
          * Get the value of creationDate
          */
-        public function getCreationDate()
+        public function getCreationDate(): \DateTime
         {
                 return $this->creationDate;
         }
@@ -116,7 +116,7 @@ final class User extends Entity
          */
         public function setCreationDate($creationDate)
         {
-                $this->creationDate = $creationDate;
+                $this->creationDate = new \DateTime($creationDate);
 
                 return $this;
         }
@@ -124,7 +124,7 @@ final class User extends Entity
         /**
          * Get the value of role
          */
-        public function getRole()
+        public function getRole(): string
         {
                 return $this->role;
         }
@@ -144,7 +144,7 @@ final class User extends Entity
         /**
          * Get the value of status
          */
-        public function getStatus()
+        public function getStatus(): bool
         {
                 return $this->status;
         }
@@ -161,7 +161,7 @@ final class User extends Entity
                 return $this;
         }
 
-        public function hasRole($role) 
+        public function hasRole($role): bool
         {
                 $result = $this->role == $role;
                 return $result;

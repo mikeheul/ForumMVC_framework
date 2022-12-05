@@ -14,6 +14,7 @@ class ForumController extends AbstractController implements ControllerInterface
 
     public function index() {}
 
+    // display all categories
     public function listCategories() {
         
         $categoryManager = new CategoryManager();
@@ -26,6 +27,7 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
+    // display all topics by category
     public function listTopicsByCategory($id) {
 
         // control if logged user
@@ -48,6 +50,7 @@ class ForumController extends AbstractController implements ControllerInterface
         }
     }
 
+    // display all posts by topic
     public function listPosts($id)
     {
         $postManager = new PostManager();
@@ -62,6 +65,7 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
+    // add a new topic (in category id)
     public function addTopic($id)
     {
         $topicManager = new TopicManager();
@@ -99,6 +103,7 @@ class ForumController extends AbstractController implements ControllerInterface
         }
     }
 
+    // lock topic (id)
     public function lockTopic($id) {
 
         $topicManager = new TopicManager();
@@ -120,6 +125,7 @@ class ForumController extends AbstractController implements ControllerInterface
         }
     }
 
+    // unlock topic (id)
     public function unlockTopic($id) {
 
         $topicManager = new TopicManager();
@@ -141,6 +147,7 @@ class ForumController extends AbstractController implements ControllerInterface
         }
     }
 
+    // add a new post in the topic (id)
     public function addPost($id)
     {
         $postManager = new PostManager();

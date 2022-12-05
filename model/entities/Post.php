@@ -5,11 +5,11 @@
 
     final class Post extends Entity{
 
-        private $id;
-        private $text;
-        private $datePost;
-        private $user;
-        private $topic;
+        private int $id;
+        private string $text;
+        private \DateTime $datePost;
+        private User $user;
+        private Topic $topic;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -18,7 +18,7 @@
         /**
          * Get the value of id
          */ 
-        public function getId()
+        public function getId(): int
         {
                 return $this->id;
         }
@@ -38,7 +38,7 @@
         /**
          * Get the value of text
          */ 
-        public function getText()
+        public function getText(): string
         {
                 return $this->text;
         }
@@ -58,7 +58,7 @@
         /**
          * Get the value of datePost
          */ 
-        public function getDatePost()
+        public function getDatePost(): \DateTime
         {
                 return $this->datePost;
         }
@@ -78,7 +78,7 @@
         /**
          * Get the value of user
          */ 
-        public function getUser()
+        public function getUser(): User
         {
                 return $this->user;
         }
@@ -98,7 +98,7 @@
         /**
          * Get the value of topic
          */ 
-        public function getTopic()
+        public function getTopic(): Topic
         {
                 return $this->topic;
         }
