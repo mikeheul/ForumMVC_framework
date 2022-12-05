@@ -104,7 +104,7 @@ class ForumController extends AbstractController implements ControllerInterface
         $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
 
-        if($_SESSION['user']) {
+        if (\App\Session::getUser()) {
             $userId = $_SESSION['user']->getId();
             if($userId === $topic->getUser()->getId()) {
                 $topicManager->lockTopic($id);
@@ -125,7 +125,7 @@ class ForumController extends AbstractController implements ControllerInterface
         $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
 
-        if($_SESSION['user']) {
+        if (\App\Session::getUser()) {
             $userId = $_SESSION['user']->getId();
             if($userId === $topic->getUser()->getId()) {
                 $topicManager->unlockTopic($id);
@@ -145,7 +145,7 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $postManager = new PostManager();
 
-        if ($_SESSION['user']) {
+        if (\App\Session::getUser()) {
 
             $user = $_SESSION['user']->getId();
 

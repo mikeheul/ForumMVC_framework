@@ -17,7 +17,7 @@ class TopicManager extends Manager
         parent::connect();
     }
 
-    public function findAllTopics($order = null, $id)
+    public function findAllTopics(array $order = null, int $id)
     {
         $orderQuery = ($order) ?                 
                 "ORDER BY ".$order[0]. " ".$order[1] :
