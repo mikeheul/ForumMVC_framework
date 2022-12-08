@@ -126,6 +126,7 @@ class ForumController extends AbstractController implements ControllerInterface
         $topic = $topicManager->findOneById($id);
         $categoryId = $topic->getCategory()->getId();
 
+        // si l'utilisateur est connecté
         if (\App\Session::getUser()) {
             $userId = $_SESSION['user']->getId();
             if($userId === $topic->getUser()->getId()) {
