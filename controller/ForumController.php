@@ -17,14 +17,20 @@ class ForumController extends AbstractController implements ControllerInterface
     // display all categories
     public function listCategories() {
         
-        $categoryManager = new CategoryManager();
-        
-        return [
-            "view" => VIEW_DIR . "forum/listCategories.php",
-            "data" => [
-                "categories" => $categoryManager->findAll(["categoryName","ASC"])
-            ]
-        ];
+        // control if logged user
+        if(\App\Session::getUser()) {
+            $categoryManager = new CategoryManager();
+            
+            return [
+                "view" => VIEW_DIR . "forum/listCategories.php",
+                "data" => [
+                    "categories" => $categoryManager->findAll(["categoryName","ASC"])
+                ]
+            ];
+        } else {
+            Session::addFlash("error", "You have to sign in or sign up to access categories !");
+            $this->redirectTo("security", "login");
+        }
     }
 
     // display all topics by category
@@ -166,7 +172,7 @@ class ForumController extends AbstractController implements ControllerInterface
         if (\App\Session::getUser()) {
             // récupération de l'id de l'utilisateur connecté (pour l'affecter au post crée)
             $user = $_SESSION['user']->getId();
-            
+
             // si on soumet le formulaire
             if (isset($_POST['submit'])) {
                 // on vérifie que les données existent et qu'elles sont valides
