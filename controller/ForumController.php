@@ -124,12 +124,17 @@ class ForumController extends AbstractController implements ControllerInterface
 
         $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
+        $categoryId = $topic->getCategory()->getId();
 
         if (\App\Session::getUser()) {
             $userId = $_SESSION['user']->getId();
             if($userId === $topic->getUser()->getId()) {
                 $topicManager->lockTopic($id);
-                $this->redirectTo("forum", "listTopicsByCategory", $topic->getCategory()->getId());
+                // if($_SERVER['HTTP_REFERER'] == BASE_DIR."index.php?ctrl=forum&action=listTopicsByCategory&id=$categoryId") {
+                    $this->redirectTo("forum", "listTopicsByCategory", $categoryId);
+                // } else {
+                //     $this->redirectTo("forum", "listPosts", $id);
+                // }
             } else {
                 Session::addFlash("error", "Forbidden action !");
                 $this->redirectTo("forum", "listPosts", $id);    
@@ -146,12 +151,17 @@ class ForumController extends AbstractController implements ControllerInterface
 
         $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
+        $categoryId = $topic->getCategory()->getId();
 
         if (\App\Session::getUser()) {
             $userId = $_SESSION['user']->getId();
             if($userId === $topic->getUser()->getId()) {
                 $topicManager->unlockTopic($id);
-                $this->redirectTo("forum", "listTopicsByCategory", $topic->getCategory()->getId());
+                // if($_SERVER['HTTP_REFERER'] == BASE_DIR."index.php?ctrl=forum&action=listTopicsByCategory&id=$categoryId") {
+                    $this->redirectTo("forum", "listTopicsByCategory", $categoryId);
+                // } else {
+                //     $this->redirectTo("forum", "listPosts", $id);
+                // }
             } else {
                 Session::addFlash("error", "Forbidden action !");
                 $this->redirectTo("forum", "listPosts", $id);    
