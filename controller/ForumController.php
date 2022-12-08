@@ -70,36 +70,46 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $topicManager = new TopicManager();
 
+        // si l'utilisateur est connecté
         if (\App\Session::getUser()) {
-
+            // récupération de l'id user pour l'affecter au nouveau topic / nouveau message
             $user = \App\Session::getUser()->getId();
 
+            // si on soumet le formulaire
             if (isset($_POST['submit'])) {
 
+                // filtrer les inputs du formulaire
                 $title = filter_input(INPUT_POST, "titleTopic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $text = filter_input(INPUT_POST, 'textTopic', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 // if (Session::getTokenCSRF() !== $_POST['csrfToken']) {
                 //     $this->redirectTo("security", "logOut");
                 // }
+                // si les filtres sont valides
                 if ($title && $text) {
-                    //  je récuprere l'id de l'ajout pour le reutiliser 
+                    //  récupération de l'id du topic pour l'affecter au premier message (grâce à lastInsertId) et insertion en bdd
                     $idTopic = $topicManager->add(["user_id" => $user, "title" => $title, "locked" => 0, "category_id" => $id]);
 
+                    // si le filtre du premier message du topic est valide
                     if ($text) {
+                        // insertion du 1er message lié au topic précédemment crée
                         $postManager = new PostManager();
                         $postManager->add(["topic_id" => $idTopic, "user_id" => $user, "text" => $text]);
-
-                        //var_dump($postManager->add(["topic_id" => $idTopic, "user_id" => $user, "text" => $text]));die;
+                        // redirection vers le topic crée
                         $this->redirectTo("forum", "listPosts", $idTopic);
                     } else {
+                        // message d'erreur si le texte du 1er message est vide
                         Session::addFlash("error", "Blank input !");
                     }
+                    // message de confirmation d'insertion en bdd
                     Session::addFlash("success", "Topic added successfully !");
                 }
             } else {
                 $this->redirectTo("forum", "index");
                 Session::addFlash("error", "Blank input !");
             }
+        } else {
+            $this->redirectTo("forum", "index");
+            Session::addFlash("error", "You must sign in to create a new topic !");
         }
     }
 
