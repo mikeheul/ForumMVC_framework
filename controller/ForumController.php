@@ -162,20 +162,26 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $postManager = new PostManager();
 
+        // si l'utilisateur est connecté
         if (\App\Session::getUser()) {
-
+            // récupération de l'id de l'utilisateur connecté (pour l'affecter au post crée)
             $user = $_SESSION['user']->getId();
-
+            
+            // si on soumet le formulaire
             if (isset($_POST['submit'])) {
-
+                // on vérifie que les données existent et qu'elles sont valides
                 if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
                     $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                     // if (Session::getTokenCSRF() !== $_POST['csrfToken']) {
                     //     $this->redirectTo("security", "logOut");
                     // }
-                    $postManager->add(["topic_id" => $id, "user_id" => $user, "text" => $text]);
-                    Session::addFlash("success", "Post added successfully !");
-                    $this->redirectTo("forum", "listPosts", $id);
+                    // si le filtre passe
+                    if($text) {
+                        // ajout du post en bdd + message de confirmation
+                        $postManager->add(["topic_id" => $id, "user_id" => $user, "text" => $text]);
+                        Session::addFlash("success", "Post added successfully !");
+                        $this->redirectTo("forum", "listPosts", $id);
+                    }
                 } else {
                     Session::addFlash("error", "Blank input !");
                     $this->redirectTo("forum", "listPosts", $id);
